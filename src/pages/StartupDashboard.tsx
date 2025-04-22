@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -12,6 +11,7 @@ import { Startup } from '@/types';
 import { Link } from 'react-router-dom';
 import { Search, Edit, Check, Plus } from 'lucide-react';
 import { toast } from 'sonner';
+import { Label } from "@/components/ui/label";
 
 const StartupDashboard = () => {
   const { user } = useAuth();
