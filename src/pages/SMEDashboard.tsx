@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getSMEProfile, getStartups } from '@/services/mockData';
 import { SMEProfile, Startup } from '@/types';
 import { Link } from 'react-router-dom';
+import { UpgradePrompt } from '@/components/sme/UpgradePrompt';
 
 const SMEDashboard = () => {
   const { user } = useAuth();
@@ -130,6 +130,11 @@ const SMEDashboard = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Add Upgrade Prompt */}
+          <div className="mt-6">
+            <UpgradePrompt />
+          </div>
         </div>
         
         {/* Main content */}

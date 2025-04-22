@@ -34,11 +34,9 @@ const StartupDashboard = () => {
       if (!user) return;
       
       try {
-        // Load all startups for search
         const allStartups = await getStartups();
         setStartups(allStartups);
         
-        // Find claimed startup if any
         const claimed = allStartups.find(s => s.claimed && s.claimedBy === user.id);
         if (claimed) {
           setClaimedStartup(claimed);
@@ -67,7 +65,6 @@ const StartupDashboard = () => {
       const claimed = await claimStartup(startupId, user.id);
       setClaimedStartup(claimed);
       
-      // Update the startups list
       setStartups(prevStartups => 
         prevStartups.map(s => 
           s.id === startupId ? claimed : s
@@ -81,7 +78,7 @@ const StartupDashboard = () => {
         tags: claimed.tags.join(', ')
       });
       
-      toast.success('You have successfully claimed this startup!');
+      toast.success('You have successfully claimed this startup! You can now manage your profile.');
     } catch (error) {
       console.error('Error claiming startup:', error);
       toast.error('Failed to claim startup. Please try again.');
@@ -138,7 +135,6 @@ const StartupDashboard = () => {
       
       {claimedStartup ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Profile Section */}
           <div className="lg:col-span-2">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
@@ -249,7 +245,6 @@ const StartupDashboard = () => {
             </Card>
           </div>
           
-          {/* Stats & Analytics */}
           <div>
             <Card>
               <CardHeader>
@@ -324,10 +319,10 @@ const StartupDashboard = () => {
               <div className="text-center py-6">
                 <h2 className="text-2xl font-semibold mb-4">Claim Your Startup Profile</h2>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                  If your AI tool is already listed, search and claim your profile. If not, you can create a new listing.
+                  If your AI tool is already listed, search and claim your profile. Or create a new listing if your startup isn't listed yet.
                 </p>
                 
-                <div className="flex items-center max-w-md mx-auto">
+                <div className="flex items-center gap-4 max-w-md mx-auto">
                   <div className="relative flex-grow">
                     <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
@@ -337,6 +332,14 @@ const StartupDashboard = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </div>
+                  <Button 
+                    variant="outline" 
+                    className="flex-shrink-0"
+                    onClick={() => toast.info('Coming soon: Create a new startup listing')}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add New
+                  </Button>
                 </div>
               </div>
             </CardContent>
