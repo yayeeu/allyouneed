@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getStartupById } from '@/services/mockData';
 import { Startup } from '@/types';
 import { ArrowLeft, ExternalLink, Check } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const StartupDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -77,25 +78,35 @@ const StartupDetail = () => {
         {/* Main content */}
         <div className="lg:col-span-2">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-20 h-20 rounded overflow-hidden">
-              <img 
-                src={startup.logo || "https://via.placeholder.com/100"} 
-                alt={`${startup.name} logo`}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-20 h-20 rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+              {startup?.logo ? (
+                <img 
+                  src={startup.logo} 
+                  alt={`${startup?.name} logo`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg';
+                  }}
+                />
+              ) : (
+                <Avatar className="w-full h-full">
+                  <AvatarFallback>{startup?.name?.charAt(0) || 'A'}</AvatarFallback>
+                </Avatar>
+              )}
             </div>
             <div>
               <div className="flex items-center">
-                <h1 className="text-3xl font-bold mr-2">{startup.name}</h1>
-                {startup.claimed && (
+                <h1 className="text-3xl font-bold mr-2">{startup?.name}</h1>
+                {startup?.claimed && (
                   <Badge className="bg-green-100 text-green-800">
                     <Check className="h-3 w-3 mr-1" /> Verified
                   </Badge>
                 )}
               </div>
-              <p className="text-gray-600 mt-1">{startup.website}</p>
+              <p className="text-gray-600 mt-1">{startup?.website}</p>
               <div className="flex flex-wrap gap-1 mt-2">
-                {startup.aiToolCategories.map((category, index) => (
+                {startup?.aiToolCategories.map((category, index) => (
                   <Badge key={index} variant="secondary">{category}</Badge>
                 ))}
               </div>
@@ -205,7 +216,7 @@ const StartupDetail = () => {
             <CardContent className="pt-6">
               <div className="text-center py-4">
                 <h3 className="font-semibold mb-4">Interested in this tool?</h3>
-                <a href={startup.website} target="_blank" rel="noopener noreferrer">
+                <a href={startup?.website} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600 mb-2">
                     Visit Website
                     <ExternalLink className="h-4 w-4 ml-2" />
@@ -224,20 +235,18 @@ const StartupDetail = () => {
               <CardDescription>Other tools in this category</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Display 3 mock similar tools */}
+              {/* Display 3 similar tools */}
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex items-start">
-                  <div className="w-10 h-10 rounded overflow-hidden mr-3">
-                    <img 
-                      src={`https://source.unsplash.com/random/100x100?logo,${i}`} 
-                      alt="Tool logo"
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="w-10 h-10 rounded overflow-hidden bg-gray-100 mr-3 flex items-center justify-center">
+                    <Avatar className="w-full h-full">
+                      <AvatarFallback>A</AvatarFallback>
+                    </Avatar>
                   </div>
                   <div>
                     <h4 className="font-medium text-sm">Similar AI Tool {i}</h4>
                     <p className="text-xs text-gray-500 line-clamp-1">
-                      {startup.aiToolCategories[0]} solution for businesses
+                      {startup?.aiToolCategories[0] || 'AI'} solution for businesses
                     </p>
                     <Link to={`/startup/startup-${10 + i}`} className="text-xs text-aiYouNeed-600 hover:underline">
                       Learn more

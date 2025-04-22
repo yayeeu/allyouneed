@@ -35,7 +35,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Content Creation', 'Marketing'],
     claimed: false,
     tags: ['Content Creation', 'Marketing', 'Copywriting', 'Blog', 'Social Media'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,blue'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-2',
@@ -45,7 +45,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Data Analysis', 'Business Intelligence'],
     claimed: false,
     tags: ['Analytics', 'Data Visualization', 'Reporting', 'Business Intelligence'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,green'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-3',
@@ -56,7 +56,7 @@ export const mockStartups: Startup[] = [
     claimed: true,
     claimedBy: 'user-1234',
     tags: ['Customer Support', 'Chatbot', 'Multilingual', '24/7 Service'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,orange'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-4',
@@ -66,7 +66,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Marketing', 'Data Analysis'],
     claimed: false,
     tags: ['Campaign Optimization', 'Analytics', 'Marketing', 'Predictive AI'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,red'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-5',
@@ -76,7 +76,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Sales', 'Data Analysis'],
     claimed: false,
     tags: ['Sales', 'Forecasting', 'Lead Scoring', 'B2B'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,purple'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-6',
@@ -86,7 +86,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['HR & Recruitment'],
     claimed: false,
     tags: ['Recruitment', 'HR', 'Talent Acquisition', 'Hiring'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,cyan'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-7',
@@ -96,7 +96,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Operations', 'Project Management'],
     claimed: false,
     tags: ['Operations', 'Workflow', 'Efficiency', 'Optimization'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,yellow'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-8',
@@ -106,7 +106,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Financial Management'],
     claimed: false,
     tags: ['Finance', 'Cash Flow', 'Financial Planning', 'Accounting'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,teal'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-9',
@@ -116,7 +116,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Project Management'],
     claimed: false,
     tags: ['Project Management', 'Task Assignment', 'Timeline Prediction'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,indigo'
+    logo: '/placeholder.svg'
   },
   {
     id: 'startup-10',
@@ -126,7 +126,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Email Automation', 'Marketing', 'Sales'],
     claimed: false,
     tags: ['Email', 'Automation', 'Personalization', 'Outreach'],
-    logo: 'https://source.unsplash.com/random/100x100?logo,gray'
+    logo: '/placeholder.svg'
   }
 ];
 
@@ -145,7 +145,7 @@ for (let i = 11; i <= 30; i++) {
     aiToolCategories: categories,
     claimed: false,
     tags: [...categories, 'AI', 'Tool'],
-    logo: `https://source.unsplash.com/random/100x100?logo,${i % 10}`
+    logo: `/placeholder.svg`
   });
 }
 

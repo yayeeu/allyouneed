@@ -3,8 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export const UpgradePrompt = () => {
+  const { toast } = useToast();
+  
+  const handleUpgradeClick = () => {
+    toast({
+      title: "Coming Soon",
+      description: "Payment processing will be available soon!",
+    });
+  };
+  
   return (
     <Card className="border-2 border-aiYouNeed-100">
       <CardHeader>
@@ -32,7 +42,7 @@ export const UpgradePrompt = () => {
       <CardFooter>
         <Button 
           className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600"
-          onClick={() => alert('Stripe integration coming soon!')}
+          onClick={handleUpgradeClick}
         >
           Upgrade to Premium - $49/month
         </Button>
