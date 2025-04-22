@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -66,7 +65,7 @@ const StartupDetail = () => {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 animate-fade-in">
       <div className="mb-6">
         <Link to="/browse" className="flex items-center text-gray-600 hover:text-gray-800">
           <ArrowLeft className="h-4 w-4 mr-1" />
@@ -75,7 +74,6 @@ const StartupDetail = () => {
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main content */}
         <div className="lg:col-span-2">
           <div className="flex items-start gap-4 mb-6">
             <div className="w-20 h-20 rounded overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -84,9 +82,12 @@ const StartupDetail = () => {
                   src={startup.logo} 
                   alt={`${startup?.name} logo`}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = '/placeholder.svg';
+                    if (target.src !== '/placeholder.svg') {
+                      target.src = '/placeholder.svg';
+                    }
                   }}
                 />
               ) : (
@@ -131,7 +132,6 @@ const StartupDetail = () => {
                   
                   <h3 className="text-lg font-semibold mt-6 mb-2">Features</h3>
                   <ul className="space-y-2">
-                    {/* Generate mock features based on the description */}
                     {startup.aiToolCategories.map((category, i) => (
                       <li key={i} className="flex items-start">
                         <Check className="h-4 w-4 mr-2 text-green-600 mt-1" />
@@ -148,7 +148,6 @@ const StartupDetail = () => {
                           {category === 'Financial Management' && 'Cash flow prediction and financial planning assistance'}
                           {category.includes('Website') && 'AI-driven website builder with SEO optimization'}
                           {category.includes('Document') && 'Automated document processing and data extraction'}
-                          {/* Fallback for other categories */}
                           {!['Content Creation', 'Data Analysis', 'Customer Service', 'Marketing', 
                              'Sales', 'HR & Recruitment', 'Operations', 'Project Management', 
                              'Email Automation', 'Financial Management'].includes(category) && 
@@ -210,9 +209,8 @@ const StartupDetail = () => {
           </Tabs>
         </div>
         
-        {/* Sidebar */}
         <div>
-          <Card className="mb-6">
+          <Card className="mb-6 bg-aiYouNeed-50 border-aiYouNeed-100 rounded-2xl shadow-sm">
             <CardContent className="pt-6">
               <div className="text-center py-4">
                 <h3 className="font-semibold mb-4">Interested in this tool?</h3>
@@ -229,13 +227,12 @@ const StartupDetail = () => {
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-aiYouNeed-50 border-aiYouNeed-100 rounded-2xl shadow-sm">
             <CardHeader>
               <CardTitle>Similar Tools</CardTitle>
               <CardDescription>Other tools in this category</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Display 3 similar tools */}
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex items-start">
                   <div className="w-10 h-10 rounded overflow-hidden bg-gray-100 mr-3 flex items-center justify-center">
