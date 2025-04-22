@@ -1,0 +1,256 @@
+
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getStartupById } from '@/services/mockData';
+import { Startup } from '@/types';
+import { ArrowLeft, ExternalLink, Check } from 'lucide-react';
+
+const StartupDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const [startup, setStartup] = useState<Startup | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadStartup = async () => {
+      if (!id) return;
+      
+      try {
+        const data = await getStartupById(id);
+        setStartup(data);
+      } catch (error) {
+        console.error('Error loading startup:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadStartup();
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[80vh]">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-4 border-aiYouNeed-500 rounded-full border-t-transparent mx-auto mb-4"></div>
+          <p>Loading AI tool details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!startup) {
+    return (
+      <div className="container py-8">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center py-8">
+              <h3 className="text-xl font-medium mb-2">AI Tool Not Found</h3>
+              <p className="text-gray-600 mb-4">
+                The AI tool you're looking for doesn't exist or has been removed.
+              </p>
+              <Link to="/browse">
+                <Button className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600">
+                  Browse All AI Tools
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container py-8">
+      <div className="mb-6">
+        <Link to="/browse" className="flex items-center text-gray-600 hover:text-gray-800">
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          Back to AI Tools
+        </Link>
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main content */}
+        <div className="lg:col-span-2">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="w-20 h-20 rounded overflow-hidden">
+              <img 
+                src={startup.logo || "https://via.placeholder.com/100"} 
+                alt={`${startup.name} logo`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <div className="flex items-center">
+                <h1 className="text-3xl font-bold mr-2">{startup.name}</h1>
+                {startup.claimed && (
+                  <Badge className="bg-green-100 text-green-800">
+                    <Check className="h-3 w-3 mr-1" /> Verified
+                  </Badge>
+                )}
+              </div>
+              <p className="text-gray-600 mt-1">{startup.website}</p>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {startup.aiToolCategories.map((category, index) => (
+                  <Badge key={index} variant="secondary">{category}</Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <Tabs defaultValue="overview">
+            <TabsList className="mb-4">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="features">Features</TabsTrigger>
+              <TabsTrigger value="use-cases">Use Cases</TabsTrigger>
+              <TabsTrigger value="pricing">Pricing</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>About {startup.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">{startup.description}</p>
+                  
+                  <h3 className="text-lg font-semibold mt-6 mb-2">Features</h3>
+                  <ul className="space-y-2">
+                    {/* Generate mock features based on the description */}
+                    {startup.aiToolCategories.map((category, i) => (
+                      <li key={i} className="flex items-start">
+                        <Check className="h-4 w-4 mr-2 text-green-600 mt-1" />
+                        <span>
+                          {category === 'Content Creation' && 'AI-powered content generation with customizable templates'}
+                          {category === 'Data Analysis' && 'Advanced analytics with interactive dashboards'}
+                          {category === 'Customer Service' && '24/7 customer support automation with multi-language support'}
+                          {category === 'Marketing' && 'Campaign optimization with performance prediction'}
+                          {category === 'Sales' && 'Lead scoring and sales forecasting'}
+                          {category === 'HR & Recruitment' && 'Automated candidate matching and screening'}
+                          {category === 'Operations' && 'Workflow optimization and efficiency monitoring'}
+                          {category === 'Project Management' && 'AI task assignment and timeline prediction'}
+                          {category === 'Email Automation' && 'Personalized email sequences with A/B testing'}
+                          {category === 'Financial Management' && 'Cash flow prediction and financial planning assistance'}
+                          {category.includes('Website') && 'AI-driven website builder with SEO optimization'}
+                          {category.includes('Document') && 'Automated document processing and data extraction'}
+                          {/* Fallback for other categories */}
+                          {!['Content Creation', 'Data Analysis', 'Customer Service', 'Marketing', 
+                             'Sales', 'HR & Recruitment', 'Operations', 'Project Management', 
+                             'Email Automation', 'Financial Management'].includes(category) && 
+                             !category.includes('Website') && !category.includes('Document') && 
+                             `Advanced ${category} capabilities tailored for businesses`}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <h3 className="text-lg font-semibold mt-6 mb-2">Tags</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {startup.tags.map((tag, index) => (
+                      <Badge key={index} variant="outline">{tag}</Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="features">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-center py-8">
+                    <h3 className="text-xl font-medium mb-2">Feature details coming soon</h3>
+                    <p className="text-gray-600">
+                      Detailed feature information will be available once the provider updates their profile.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="use-cases">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-center py-8">
+                    <h3 className="text-xl font-medium mb-2">Use cases coming soon</h3>
+                    <p className="text-gray-600">
+                      Real-world examples and use cases will be added by the provider soon.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="pricing">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="text-center py-8">
+                    <h3 className="text-xl font-medium mb-2">Pricing information coming soon</h3>
+                    <p className="text-gray-600">
+                      Pricing details will be available once the provider updates their profile.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+        
+        {/* Sidebar */}
+        <div>
+          <Card className="mb-6">
+            <CardContent className="pt-6">
+              <div className="text-center py-4">
+                <h3 className="font-semibold mb-4">Interested in this tool?</h3>
+                <a href={startup.website} target="_blank" rel="noopener noreferrer">
+                  <Button className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600 mb-2">
+                    Visit Website
+                    <ExternalLink className="h-4 w-4 ml-2" />
+                  </Button>
+                </a>
+                <Button variant="outline" className="w-full mt-2">
+                  Save for Later
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Similar Tools</CardTitle>
+              <CardDescription>Other tools in this category</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Display 3 mock similar tools */}
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-start">
+                  <div className="w-10 h-10 rounded overflow-hidden mr-3">
+                    <img 
+                      src={`https://source.unsplash.com/random/100x100?logo,${i}`} 
+                      alt="Tool logo"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-sm">Similar AI Tool {i}</h4>
+                    <p className="text-xs text-gray-500 line-clamp-1">
+                      {startup.aiToolCategories[0]} solution for businesses
+                    </p>
+                    <Link to={`/startup/startup-${10 + i}`} className="text-xs text-aiYouNeed-600 hover:underline">
+                      Learn more
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StartupDetail;
