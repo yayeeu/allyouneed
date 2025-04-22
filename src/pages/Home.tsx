@@ -31,7 +31,7 @@ const Home = () => {
     {
       icon: <Building className="h-8 w-8 text-aiYouNeed-500" />,
       title: 'Showcase Your Tool',
-      description: 'Create a compelling profile that highlights your AI solution's unique value.'
+      description: "Create a compelling profile that highlights your AI solution's unique value."
     },
     {
       icon: <Search className="h-8 w-8 text-aiYouNeed-500" />,
