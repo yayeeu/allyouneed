@@ -261,11 +261,11 @@ const Onboarding = () => {
           ></div>
         </div>
         <div className="flex justify-between mt-1 text-xs text-gray-500">
-          <span>Industry</span>
-          <span>Goals</span>
-          <span>Tools</span>
+          <span>Company</span>
+          <span>Tools &amp; Goals</span>
           <span>Challenges</span>
-          <span>AI Familiarity</span>
+          <span>AI Insight</span>
+          <span>Next Steps</span>
           <span>Complete</span>
         </div>
       </div>
