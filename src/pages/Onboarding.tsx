@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -225,13 +224,28 @@ const Onboarding = () => {
                 </Button>
               </div>
             ) : (
-              <div className="text-center">
-                <p className="text-green-600 mb-4">
+              <div className="text-center flex flex-col items-center gap-4">
+                <p className="text-green-600 mb-2">
                   Great job! We've collected all the information we need.
                 </p>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full max-w-xs"
+                >
+                  <a
+                    href="/sample-playbook.pdf"
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center"
+                  >
+                    Download Sample Playbook
+                  </a>
+                </Button>
                 <Button 
                   onClick={finishOnboarding}
-                  className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600"
+                  className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600 w-full max-w-xs"
                 >
                   View Your AI Tool Recommendations
                 </Button>
