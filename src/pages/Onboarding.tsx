@@ -181,7 +181,6 @@ const Onboarding = () => {
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col h-[500px]">
-            {/* Chat messages */}
             <div className="flex-grow overflow-y-auto mb-4 space-y-4 p-2">
               {messages.map(message => (
                 <div
@@ -201,7 +200,6 @@ const Onboarding = () => {
               ))}
             </div>
             
-            {/* Input area */}
             {!isComplete ? (
               <div className="flex items-center">
                 <Input
@@ -235,12 +233,11 @@ const Onboarding = () => {
                 >
                   <a
                     href="/sample-playbook.pdf"
-                    download
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center"
                   >
-                    Download Sample Playbook
+                    Download Playbook
                   </a>
                 </Button>
                 <Button 
