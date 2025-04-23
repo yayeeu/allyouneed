@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { bot } from "lucide-react";
+import { Bot } from "lucide-react";
 
 interface Message {
   id: string;
@@ -68,7 +68,7 @@ const Chatbot = () => {
     <div className="max-w-2xl mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6 text-center flex justify-center items-center gap-2">
         <span>Chatbot</span>
-        <bot className="h-7 w-7 text-aiYouNeed-500" />
+        <Bot className="h-7 w-7 text-aiYouNeed-500" />
       </h1>
       <Card>
         <CardContent className="p-6 flex flex-col h-[500px]">
@@ -85,7 +85,7 @@ const Chatbot = () => {
                       : "aiui-gradient text-white"
                   }`}
                 >
-                  {msg.sender === "bot" && <bot className="h-5 w-5 mr-2 text-aiYouNeed-500" />}
+                  {msg.sender === "bot" && <Bot className="h-5 w-5 mr-2 text-aiYouNeed-500" />}
                   <span>{msg.text}</span>
                 </div>
               </div>
