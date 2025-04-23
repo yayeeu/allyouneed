@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { createChatSession, addChatMessage } from '../services/smeService';
-import { ChatMessage } from '@/types';
+import { createChatSession, addChatMessage, ChatMessage } from '../services/smeService';
 import { toast } from 'react-hot-toast';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { createSMEProfile } from '../services/smeService';
@@ -91,6 +90,28 @@ const Onboarding = () => {
         const session = await createChatSession(user.id, 'sme_onboarding');
         setChatSessionId(session.id);
         setMessages(session.messages);
+        
+        // Get initial greeting and first question from Gemini
+        const result = await model.generateContent([
+          SYSTEM_PROMPT,
+          "Please start the onboarding conversation with a friendly greeting and ask about their industry."
+        ]);
+
+        if (!result.response) {
+          throw new Error('No response from Gemini API');
+        }
+
+        const botResponse = result.response.text();
+        
+        // Add the bot's initial message to the chat
+        const newMessage: ChatMessage = {
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: botResponse,
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, newMessage]);
         setIsLoading(false);
       } catch (error) {
         console.error('Error creating chat session:', error);
