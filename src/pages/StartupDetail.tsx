@@ -117,7 +117,7 @@ const StartupDetail = () => {
           <Tabs defaultValue="overview">
             <TabsList className="mb-4">
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="features">Features</TabsTrigger>
+              <TabsTrigger value="integrated-rating">Integrated Rating</TabsTrigger>
               <TabsTrigger value="use-cases">Use Cases</TabsTrigger>
               <TabsTrigger value="pricing">Pricing</TabsTrigger>
             </TabsList>
@@ -168,14 +168,83 @@ const StartupDetail = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="features">
+            <TabsContent value="integrated-rating">
               <Card>
-                <CardContent className="pt-6">
-                  <div className="text-center py-8">
-                    <h3 className="text-xl font-medium mb-2">Feature details coming soon</h3>
-                    <p className="text-gray-600">
-                      Detailed feature information will be available once the provider updates their profile.
-                    </p>
+                <CardHeader>
+                  <CardTitle>
+                    <span className="font-bold text-aiYouNeed-600">.I.A.M.</span> Framework Breakdown
+                  </CardTitle>
+                  <CardDescription>
+                    A structured rating to help you evaluate this AI tool for Integration, Accuracy, and Maneuverability.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-2">
+                  <div className="space-y-8">
+                    {/* INTEGRATION */}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <span className="inline-block bg-aiYouNeed-100 rounded-full p-1 mr-2">
+                          <span className="text-aiYouNeed-600 font-semibold">I</span>
+                        </span>
+                        <span className="font-semibold text-lg">Integration</span>
+                        <span className="ml-2 text-sm text-gray-500">Can it plug into what we already use?</span>
+                      </div>
+                      <ul className="pl-4 list-disc text-gray-700 space-y-1">
+                        <li>System Compatibility</li>
+                        <li>API &amp; Middleware Support</li>
+                        <li>Data Migration &amp; Sync</li>
+                        <li>Security Compliance &amp; Identity Management</li>
+                      </ul>
+                    </div>
+                    {/* ACCURACY */}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <span className="inline-block bg-aiYouNeed-100 rounded-full p-1 mr-2">
+                          <span className="text-aiYouNeed-600 font-semibold">A</span>
+                        </span>
+                        <span className="font-semibold text-lg">Accuracy</span>
+                        <span className="ml-2 text-sm text-gray-500">Can it do what it promises — and do it well?</span>
+                      </div>
+                      <ul className="pl-4 list-disc text-gray-700 space-y-1">
+                        <li>Core Function Effectiveness</li>
+                        <li>Output Reliability</li>
+                        <li>Edge Case Performance</li>
+                        <li>Metric Tracking &amp; Benchmarking</li>
+                      </ul>
+                    </div>
+                    {/* MANEUVERABILITY */}
+                    <div>
+                      <div className="flex items-center mb-2">
+                        <span className="inline-block bg-aiYouNeed-100 rounded-full p-1 mr-2">
+                          <span className="text-aiYouNeed-600 font-semibold">M</span>
+                        </span>
+                        <span className="font-semibold text-lg">Maneuverability (User Friendliness)</span>
+                        <span className="ml-2 text-sm text-gray-500">How easily can users start and stay productive?</span>
+                      </div>
+                      <ul className="pl-4 list-disc text-gray-700 space-y-1">
+                        <li>Intuitive UI/UX</li>
+                        <li>Short Learning Curve</li>
+                        <li>Training &amp; Documentation Support</li>
+                        <li>Customizability for User Needs</li>
+                      </ul>
+                    </div>
+                    {/* Illustration example */}
+                    <div className="bg-aiYouNeed-50 p-4 rounded-lg mt-2">
+                      <h4 className="text-lg font-semibold mb-2 text-aiYouNeed-600">Example: Applied to Email Automation Tool</h4>
+                      <div>
+                        <ul className="list-disc pl-6 space-y-1 text-gray-700 text-sm">
+                          <li>
+                            <span className="font-bold text-aiYouNeed-600">Integration:</span> Supports Gmail, Outlook, and CRM sync; easy data import/export; meets SSO and SOC2 compliance.
+                          </li>
+                          <li>
+                            <span className="font-bold text-aiYouNeed-600">Accuracy:</span> Sends emails as scheduled, achieves 99% delivery &amp; response rate accuracy, handles duplicate contacts, and tracks open/click metrics.
+                          </li>
+                          <li>
+                            <span className="font-bold text-aiYouNeed-600">Maneuverability:</span> Simple drag-and-drop campaign builder, in-app tips/tutorials, and robust user configuration tools.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
