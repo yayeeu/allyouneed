@@ -1,14 +1,59 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { createChatSession, addChatMessage, createSMEProfile } from '@/services/mockData';
+import { createChatSession, addChatMessage } from '../services/smeService';
 import { ChatMessage } from '@/types';
-import { toast } from 'sonner';
+import { toast } from 'react-hot-toast';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { createSMEProfile } from '../services/smeService';
+import { SMEProfile } from '../types/sme';
+
+// Initialize Gemini API
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ 
+  model: "gemini-2.0-flash",
+  generationConfig: {
+    temperature: 0.7,
+    topK: 1,
+    topP: 1,
+    maxOutputTokens: 2048,
+  },
+});
+
+// System prompt for the onboarding chat
+const SYSTEM_PROMPT = `You are an AI onboarding assistant for AIYouNeed. Your role is to:
+1. Guide users through the onboarding process
+2. Ask relevant questions based on their industry and needs
+3. Extract and structure information about:
+   - Industry
+   - Business goals
+   - Current tools
+   - Pain points
+   - AI familiarity level
+4. Maintain a conversational tone while collecting structured data`;
+
+// Recommendation prompt template
+const RECOMMENDATION_PROMPT = `Based on the following business information, provide detailed AI tool recommendations:
+
+Industry: {industry}
+Goals: {goals}
+Current Tools: {currentTools}
+Pain Points: {painPoints}
+AI Familiarity: {aiFamiliarity}
+
+Please provide:
+1. 3-5 specific AI tools that would best address their needs
+2. Brief explanation for each recommendation
+3. Implementation difficulty level (Beginner/Intermediate/Advanced)
+4. Estimated time to value for each tool
+5. Any potential challenges or considerations
+
+Format the response in a clear, structured way that can be easily parsed.`;
 
 const Onboarding = () => {
   const { user } = useAuth();
@@ -28,6 +73,7 @@ const Onboarding = () => {
     aiFamiliarity: 'beginner' as 'beginner' | 'intermediate' | 'advanced'
   });
   const [isComplete, setIsComplete] = useState(false);
+  const [isGeneratingRecommendations, setIsGeneratingRecommendations] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -78,21 +124,37 @@ const Onboarding = () => {
 
       setInputMessage('');
 
-      // Save to "backend"
-      const updatedSession = await addChatMessage(chatSessionId, message);
-      
-      // Update messages from response to get the bot's reply
-      setTimeout(() => {
-        setMessages(updatedSession.messages);
-        setIsSending(false);
-        
-        // Update onboarding data
-        updateOnboardingDataFromConversation(message.text);
-      }, 1000);
+      // Get AI response using Gemini
+      const result = await model.generateContent([
+        SYSTEM_PROMPT,
+        ...messages.map(msg => msg.text),
+        inputMessage
+      ]);
+
+      if (!result.response) {
+        throw new Error('No response from Gemini API');
+      }
+
+      const botResponse = result.response.text();
+
+      // Update messages with bot response
+      setMessages(prev => [
+        ...prev,
+        {
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: botResponse,
+          timestamp: new Date()
+        }
+      ]);
+
+      // Update onboarding data based on conversation
+      updateOnboardingDataFromConversation(inputMessage);
 
     } catch (error) {
       console.error('Error sending message:', error);
       toast.error('Failed to send message. Please try again.');
+    } finally {
       setIsSending(false);
     }
   };
@@ -137,26 +199,65 @@ const Onboarding = () => {
     }
   };
 
+  const parseRecommendations = (text: string) => {
+    // Split the text into sections
+    const sections = text.split('\n\n');
+    
+    const recommendations = sections.map(section => {
+      const lines = section.split('\n');
+      return {
+        tool: lines[0]?.replace(/^\d+\.\s*/, '') || '', // Remove numbering
+        explanation: lines[1]?.replace('Explanation: ', '') || '',
+        difficulty: lines[2]?.replace('Difficulty: ', '') || '',
+        timeToValue: lines[3]?.replace('Time to Value: ', '') || '',
+        considerations: lines[4]?.replace('Considerations: ', '') || ''
+      };
+    });
+
+    return recommendations;
+  };
+
   const finishOnboarding = async () => {
     if (!user) return;
     
     try {
-      setIsLoading(true);
+      setIsGeneratingRecommendations(true);
       
-      // Create SME profile with collected data
-      if (user) {
-        await createSMEProfile({
-          userId: user.id,
-          ...onboardingData
-        });
+      // Generate AI recommendations
+      const recommendationPrompt = RECOMMENDATION_PROMPT
+        .replace('{industry}', onboardingData.industry)
+        .replace('{goals}', onboardingData.goals.join(', '))
+        .replace('{currentTools}', onboardingData.currentTools.join(', '))
+        .replace('{painPoints}', onboardingData.painPoints.join(', '))
+        .replace('{aiFamiliarity}', onboardingData.aiFamiliarity);
+
+      const result = await model.generateContent(recommendationPrompt);
+      
+      if (!result.response) {
+        throw new Error('No response from Gemini API');
       }
+
+      const recommendations = parseRecommendations(result.response.text());
+      
+      // Create SME profile with recommendations
+      const smeProfile: SMEProfile = {
+        userId: user.id,
+        industry: onboardingData.industry,
+        goals: onboardingData.goals,
+        currentTools: onboardingData.currentTools,
+        painPoints: onboardingData.painPoints,
+        aiFamiliarity: onboardingData.aiFamiliarity,
+        recommendations: recommendations
+      };
+
+      await createSMEProfile(smeProfile);
       
       toast.success('Onboarding completed! Redirecting to your dashboard.');
       navigate('/sme-dashboard');
     } catch (error) {
       console.error('Error finishing onboarding:', error);
       toast.error('Failed to complete onboarding. Please try again.');
-      setIsLoading(false);
+      setIsGeneratingRecommendations(false);
     }
   };
 
@@ -223,29 +324,38 @@ const Onboarding = () => {
               </div>
             ) : (
               <div className="text-center flex flex-col items-center gap-4">
-                <p className="text-green-600 mb-2">
-                  Great job! We've collected all the information we need.
-                </p>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full max-w-xs"
-                >
-                  <a
-                    href="/sample-playbook.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center"
-                  >
-                    Download Playbook
-                  </a>
-                </Button>
-                <Button 
-                  onClick={finishOnboarding}
-                  className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600 w-full max-w-xs"
-                >
-                  View Your AI Tool Recommendations
-                </Button>
+                {isGeneratingRecommendations ? (
+                  <>
+                    <div className="animate-spin h-8 w-8 border-4 border-aiYouNeed-500 rounded-full border-t-transparent mx-auto mb-4"></div>
+                    <p className="text-gray-600">Generating personalized AI tool recommendations...</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-green-600 mb-2">
+                      Great job! We've collected all the information we need.
+                    </p>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full max-w-xs"
+                    >
+                      <a
+                        href="/sample-playbook.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center"
+                      >
+                        Download Playbook
+                      </a>
+                    </Button>
+                    <Button 
+                      onClick={finishOnboarding}
+                      className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600 w-full max-w-xs"
+                    >
+                      View Your AI Tool Recommendations
+                    </Button>
+                  </>
+                )}
               </div>
             )}
           </div>

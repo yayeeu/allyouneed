@@ -1,0 +1,11 @@
+services:
+  alyouneed:
+    container_name: alyouneed
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080

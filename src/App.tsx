@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster as HotToaster } from "react-hot-toast";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,7 +17,8 @@ import BrowseTools from "./pages/BrowseTools";
 import Onboarding from "./pages/Onboarding";
 import StartupDetail from "./pages/StartupDetail";
 import NotFound from "./pages/NotFound";
-import Chatbot from "./pages/Chatbot";
+import ChatbotPage from "./pages/Chatbot";
+import Chatbot from "./components/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -26,15 +28,17 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
+        <HotToaster position="top-right" />
         <BrowserRouter>
           <MainLayout>
+            <Chatbot />
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<PublicRoute restricted><Login /></PublicRoute>} />
               <Route path="/signup" element={<PublicRoute restricted><Signup /></PublicRoute>} />
               <Route path="/browse" element={<BrowseTools />} />
-              <Route path="/chatbot" element={<Chatbot />} />
+              <Route path="/chat" element={<ChatbotPage />} />
               <Route path="/startup/:id" element={<StartupDetail />} />
               
               {/* Protected routes */}

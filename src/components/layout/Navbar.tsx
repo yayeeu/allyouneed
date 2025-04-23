@@ -35,7 +35,7 @@ const Navbar = () => {
             <Link to="/browse" className="text-gray-600 hover:text-aiYouNeed-600">
               Browse AI Tools
             </Link>
-            <Link to="/chatbot" className="text-gray-600 hover:text-aiYouNeed-600">
+            <Link to="/chat" className="text-gray-600 hover:text-aiYouNeed-600">
               Chatbot
             </Link>
             {!user && (
@@ -102,7 +102,7 @@ const Navbar = () => {
                 Browse AI Tools
               </Link>
               <Link 
-                to="/chatbot" 
+                to="/chat" 
                 className="text-gray-600 hover:text-aiYouNeed-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -110,17 +110,10 @@ const Navbar = () => {
               </Link>
               {!user && (
                 <>
-                  <Link 
-                    to="/login" 
-                    className="text-gray-600 hover:text-aiYouNeed-600"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Login
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full">Login</Button>
                   </Link>
-                  <Link 
-                    to="/signup" 
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
+                  <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
                     <Button className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600">
                       Sign Up
                     </Button>
@@ -143,17 +136,15 @@ const Navbar = () => {
                   >
                     Profile
                   </Link>
-                  <Button 
-                    variant="ghost" 
-                    className="justify-start px-0"
+                  <button
                     onClick={() => {
                       handleLogout();
                       setMobileMenuOpen(false);
                     }}
+                    className="text-gray-600 hover:text-aiYouNeed-600 text-left"
                   >
-                    <LogOut className="h-4 w-4 mr-2" />
                     Logout
-                  </Button>
+                  </button>
                 </>
               )}
             </div>

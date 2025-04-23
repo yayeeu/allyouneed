@@ -1,4 +1,3 @@
-
 // User types
 export type UserType = "startup" | "sme";
 
@@ -31,7 +30,13 @@ export interface SMEProfile {
   currentTools: string[];
   painPoints: string[];
   aiFamiliarity: 'beginner' | 'intermediate' | 'advanced';
-  recommendations: Recommendation[];
+  recommendations?: {
+    tool: string;
+    explanation: string;
+    difficulty: string;
+    timeToValue: string;
+    considerations: string;
+  }[];
 }
 
 export interface Recommendation {
