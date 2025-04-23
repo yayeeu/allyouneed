@@ -265,7 +265,6 @@ const Onboarding = () => {
           <span>Tools &amp; Goals</span>
           <span>Challenges</span>
           <span>AI Insight</span>
-          <span>Next Steps</span>
           <span>Complete</span>
         </div>
       </div>
