@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -35,6 +34,9 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/browse" className="text-gray-600 hover:text-aiYouNeed-600">
               Browse AI Tools
+            </Link>
+            <Link to="/chatbot" className="text-gray-600 hover:text-aiYouNeed-600">
+              Chatbot
             </Link>
             {!user && (
               <>
@@ -98,6 +100,13 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Browse AI Tools
+              </Link>
+              <Link 
+                to="/chatbot" 
+                className="text-gray-600 hover:text-aiYouNeed-600"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Chatbot
               </Link>
               {!user && (
                 <>

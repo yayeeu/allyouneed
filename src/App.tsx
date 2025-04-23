@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import BrowseTools from "./pages/BrowseTools";
 import Onboarding from "./pages/Onboarding";
 import StartupDetail from "./pages/StartupDetail";
 import NotFound from "./pages/NotFound";
+import Chatbot from "./pages/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +34,7 @@ const App = () => (
               <Route path="/login" element={<PublicRoute restricted><Login /></PublicRoute>} />
               <Route path="/signup" element={<PublicRoute restricted><Signup /></PublicRoute>} />
               <Route path="/browse" element={<BrowseTools />} />
+              <Route path="/chatbot" element={<Chatbot />} />
               <Route path="/startup/:id" element={<StartupDetail />} />
               
               {/* Protected routes */}
