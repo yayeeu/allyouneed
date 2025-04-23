@@ -35,7 +35,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Content Creation', 'Marketing'],
     claimed: false,
     tags: ['Content Creation', 'Marketing', 'Copywriting', 'Blog', 'Social Media'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-2',
@@ -45,7 +45,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Data Analysis', 'Business Intelligence'],
     claimed: false,
     tags: ['Analytics', 'Data Visualization', 'Reporting', 'Business Intelligence'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-3',
@@ -56,7 +56,7 @@ export const mockStartups: Startup[] = [
     claimed: true,
     claimedBy: 'user-1234',
     tags: ['Customer Support', 'Chatbot', 'Multilingual', '24/7 Service'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-4',
@@ -66,7 +66,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Marketing', 'Data Analysis'],
     claimed: false,
     tags: ['Campaign Optimization', 'Analytics', 'Marketing', 'Predictive AI'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-5',
@@ -76,7 +76,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Sales', 'Data Analysis'],
     claimed: false,
     tags: ['Sales', 'Forecasting', 'Lead Scoring', 'B2B'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-6',
@@ -86,7 +86,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['HR & Recruitment'],
     claimed: false,
     tags: ['Recruitment', 'HR', 'Talent Acquisition', 'Hiring'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-7',
@@ -96,7 +96,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Operations', 'Project Management'],
     claimed: false,
     tags: ['Operations', 'Workflow', 'Efficiency', 'Optimization'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-8',
@@ -106,7 +106,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Financial Management'],
     claimed: false,
     tags: ['Finance', 'Cash Flow', 'Financial Planning', 'Accounting'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-9',
@@ -116,7 +116,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Project Management'],
     claimed: false,
     tags: ['Project Management', 'Task Assignment', 'Timeline Prediction'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop'
   },
   {
     id: 'startup-10',
@@ -126,7 +126,7 @@ export const mockStartups: Startup[] = [
     aiToolCategories: ['Email Automation', 'Marketing', 'Sales'],
     claimed: false,
     tags: ['Email', 'Automation', 'Personalization', 'Outreach'],
-    logo: '/placeholder.svg'
+    logo: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=100&h=100&fit=crop'
   }
 ];
 
