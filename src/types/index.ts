@@ -1,3 +1,4 @@
+
 // User types
 export type UserType = "startup" | "sme";
 
@@ -30,13 +31,15 @@ export interface SMEProfile {
   currentTools: string[];
   painPoints: string[];
   aiFamiliarity: 'beginner' | 'intermediate' | 'advanced';
-  recommendations?: {
-    tool: string;
-    explanation: string;
-    difficulty: string;
-    timeToValue: string;
-    considerations: string;
-  }[];
+  recommendations?: AIRecommendation[];
+}
+
+export interface AIRecommendation {
+  tool: string;
+  explanation: string;
+  difficulty: string;
+  timeToValue: string;
+  considerations: string;
 }
 
 export interface Recommendation {
@@ -56,7 +59,7 @@ export interface ChatMessage {
 export interface ChatSession {
   id: string;
   userId: string;
-  type: "sme_onboarding";
+  type: string;
   messages: ChatMessage[];
   createdAt: Date;
   updatedAt: Date;

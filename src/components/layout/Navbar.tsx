@@ -25,8 +25,8 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold text-aiYouNeed-600">
-              AIYouNeed
+            <span className="text-xl font-bold text-aiYouneed-600">
+              AIYouneed
             </span>
           </Link>
 

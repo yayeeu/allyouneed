@@ -29,17 +29,26 @@ export interface ChatSession {
   messages: ChatMessage[];
 }
 
-export const createChatSession = async (userId: string, type: string): Promise<ChatSession> => {
+// Mock function to create a chat session
+export const createChatSession = async (userId: string, sessionType: string): Promise<ChatSession> => {
   // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 800));
+  
+  // Create welcome message
+  const welcomeMessage: ChatMessage = {
+    id: `welcome-${Date.now()}`,
+    sender: 'bot',
+    text: "Welcome to AIYouneed! I'm your AI assistant and I'll help you find the perfect AI tools for your business. First, could you tell me what industry you're in?",
+    timestamp: new Date()
+  };
   
   return {
     id: Math.random().toString(36).substr(2, 9),
     userId,
-    type,
+    type: sessionType,
     createdAt: new Date(),
     updatedAt: new Date(),
-    messages: []
+    messages: [welcomeMessage]
   };
 };
 
@@ -52,4 +61,4 @@ export const addChatMessage = async (sessionId: string, message: Omit<ChatMessag
     id: Math.random().toString(36).substr(2, 9),
     timestamp: new Date()
   };
-}; 
+};
