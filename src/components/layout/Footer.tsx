@@ -16,26 +16,26 @@ const Footer = () => {
           <div>
             <h4 className="font-medium mb-4">For SMEs</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/browse" className="text-gray-600 hover:text-aiYouNeed-600">Browse AI Tools</Link></li>
-              <li><Link to="/signup" className="text-gray-600 hover:text-aiYouNeed-600">Get Recommendations</Link></li>
+              <li><Link to="/browse" className="text-gray-600 hover:text-aiYouneed-600">Browse AI Tools</Link></li>
+              <li><Link to="/signup" className="text-gray-600 hover:text-aiYouneed-600">Get Recommendations</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-medium mb-4">For Startups</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/signup" className="text-gray-600 hover:text-aiYouNeed-600">Claim Your Profile</Link></li>
-              <li><a href="#" className="text-gray-600 hover:text-aiYouNeed-600">Promote Your Tool</a></li>
+              <li><Link to="/signup" className="text-gray-600 hover:text-aiYouneed-600">Claim Your Profile</Link></li>
+              <li><a href="#" className="text-gray-600 hover:text-aiYouneed-600">Promote Your Tool</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-medium mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-gray-600 hover:text-aiYouNeed-600">About</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-aiYouNeed-600">Contact</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-aiYouNeed-600">Terms</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-aiYouNeed-600">Privacy</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-aiYouneed-600">About</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-aiYouneed-600">Contact</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-aiYouneed-600">Terms</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-aiYouneed-600">Privacy</a></li>
             </ul>
           </div>
         </div>

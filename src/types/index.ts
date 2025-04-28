@@ -31,7 +31,7 @@ export interface SMEProfile {
   currentTools: string[];
   painPoints: string[];
   aiFamiliarity: 'beginner' | 'intermediate' | 'advanced';
-  recommendations?: AIRecommendation[];
+  recommendations?: Recommendation[];
 }
 
 export interface AIRecommendation {
@@ -40,6 +40,9 @@ export interface AIRecommendation {
   difficulty: string;
   timeToValue: string;
   considerations: string;
+  category?: string;
+  description?: string;
+  relevanceScore?: number;
 }
 
 export interface Recommendation {

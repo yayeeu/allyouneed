@@ -16,7 +16,7 @@ export const UpgradePrompt = () => {
   };
   
   return (
-    <Card className="border-2 border-aiYouNeed-100">
+    <Card className="border-2 border-aiYouneed-100">
       <CardHeader>
         <CardTitle className="text-xl">Unlock Advanced AI Insights</CardTitle>
         <CardDescription>
@@ -41,7 +41,7 @@ export const UpgradePrompt = () => {
       </CardContent>
       <CardFooter>
         <Button 
-          className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600"
+          className="w-full bg-aiYouneed-500 hover:bg-aiYouneed-600"
           onClick={handleUpgradeClick}
         >
           Upgrade to Premium - $49/month

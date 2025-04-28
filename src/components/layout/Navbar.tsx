@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -32,10 +33,10 @@ const Navbar = () => {
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/browse" className="text-gray-600 hover:text-aiYouNeed-600">
+            <Link to="/browse" className="text-gray-600 hover:text-aiYouneed-600">
               Browse AI Tools
             </Link>
-            <Link to="/chat" className="text-gray-600 hover:text-aiYouNeed-600">
+            <Link to="/chat" className="text-gray-600 hover:text-aiYouneed-600">
               Chatbot
             </Link>
             {!user && (
@@ -44,7 +45,7 @@ const Navbar = () => {
                   <Button variant="ghost">Login</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button className="bg-aiYouNeed-500 hover:bg-aiYouNeed-600">
+                  <Button className="bg-aiYouneed-500 hover:bg-aiYouneed-600">
                     Sign Up
                   </Button>
                 </Link>
@@ -96,14 +97,14 @@ const Navbar = () => {
             <div className="flex flex-col space-y-4">
               <Link 
                 to="/browse" 
-                className="text-gray-600 hover:text-aiYouNeed-600"
+                className="text-gray-600 hover:text-aiYouneed-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Browse AI Tools
               </Link>
               <Link 
                 to="/chat" 
-                className="text-gray-600 hover:text-aiYouNeed-600"
+                className="text-gray-600 hover:text-aiYouneed-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Chatbot
@@ -114,7 +115,7 @@ const Navbar = () => {
                     <Button variant="ghost" className="w-full">Login</Button>
                   </Link>
                   <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
-                    <Button className="w-full bg-aiYouNeed-500 hover:bg-aiYouNeed-600">
+                    <Button className="w-full bg-aiYouneed-500 hover:bg-aiYouneed-600">
                       Sign Up
                     </Button>
                   </Link>
@@ -124,14 +125,14 @@ const Navbar = () => {
                 <>
                   <Link 
                     to={user.userType === 'sme' ? '/sme-dashboard' : '/startup-dashboard'} 
-                    className="text-gray-600 hover:text-aiYouNeed-600"
+                    className="text-gray-600 hover:text-aiYouneed-600"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <Link 
                     to="/profile" 
-                    className="text-gray-600 hover:text-aiYouNeed-600"
+                    className="text-gray-600 hover:text-aiYouneed-600"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Profile
@@ -141,7 +142,7 @@ const Navbar = () => {
                       handleLogout();
                       setMobileMenuOpen(false);
                     }}
-                    className="text-gray-600 hover:text-aiYouNeed-600 text-left"
+                    className="text-gray-600 hover:text-aiYouneed-600 text-left"
                   >
                     Logout
                   </button>

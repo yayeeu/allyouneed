@@ -95,6 +95,6 @@
   }
   
   .aiui-gradient {
-    @apply bg-gradient-to-r from-aiYouNeed-600 to-aiYouNeed-400;
+    @apply bg-gradient-to-r from-aiYouneed-600 to-aiYouneed-400;
   }
 }
